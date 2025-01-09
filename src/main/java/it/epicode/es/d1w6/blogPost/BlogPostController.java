@@ -1,6 +1,7 @@
 package it.epicode.es.d1w6.blogPost;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,20 @@ import java.util.List;
 public class BlogPostController {
     @Autowired
     private BlogPostService blogPostService;
+
+    @GetMapping("/paged")
+    public ResponseEntity<Page<BlogPost>> getAllBlogPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy) {
+        return ResponseEntity.ok(blogPostService.findAll(page, size, sortBy));
+    }
+
+    //altro tipo di paginazione
+//    @GetMapping("/paged")
+//    public ResponseEntity<Page<BlogPost>> getAllBlogPosts(Pageable page) {
+//        return ResponseEntity.ok(blogPostService.findAll(page));
+//    }
 
     @GetMapping
     public ResponseEntity<List<BlogPost>> listAllBlogPost() {

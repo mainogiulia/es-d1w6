@@ -5,6 +5,10 @@ import it.epicode.es.d1w6.author.AuthorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +18,18 @@ import java.util.List;
 public class BlogPostService {
     private final BlogPostRepo blogPostRepo;
     private final AuthorService authorService;
+
+    //metodo per tutti i blogPost con paginazione e ordinamento
+    public Page<BlogPost> findAll(int page, int size, String sortBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
+        return blogPostRepo.findAll(pageable);
+    }
+
+    //altro tipo di paginazione
+//    public Page<BlogPost> findAll(Pageable pageable) {
+//
+//        return blogPostRepo.findAll(pageable);
+//    }
 
     public List<BlogPost> findAll() {
         return blogPostRepo.findAll();

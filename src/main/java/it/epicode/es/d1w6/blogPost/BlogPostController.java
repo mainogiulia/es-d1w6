@@ -24,7 +24,7 @@ public class BlogPostController {
     }
 
     @PostMapping
-    public ResponseEntity<BlogPost> createBlogPost(@RequestBody BlogPost request) {
+    public ResponseEntity<BlogPost> createBlogPost(@RequestBody BlogPostDTO request) {
         return new ResponseEntity<>(blogPostService.createBlogPost(request), HttpStatus.CREATED);
     }
 

@@ -1,5 +1,6 @@
 package it.epicode.es.d1w6.author;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -33,9 +34,9 @@ public class AuthorService {
     //metodo per aggiornare un BlogPost
 
     public Author updateAuthor(Long id, Author authorModificato) {
-        Author autrModificato = findById(id);
-        BeanUtils.copyProperties(authorModificato,authorModificato);
-        return authorRepo.save(authorModificato);
+        Author author = findById(id);
+        BeanUtils.copyProperties(authorModificato,author);
+        return authorRepo.save(author);
     }
 
     //metodo per eliminare un BlogPost
